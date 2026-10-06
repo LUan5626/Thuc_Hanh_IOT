@@ -30,50 +30,6 @@ Mặc định dùng broker công cộng **HiveMQ**:
 
 Không cần cài đặt hay cấu hình gì thêm, chỉ cần máy có kết nối Internet.
 
-### Đổi sang broker khác
-
-Host và port được đọc từ biến môi trường `MQTT_BROKER` và `MQTT_PORT` (đã khai báo ở đầu mỗi file `.py`), nên không cần sửa code.
-
-**Windows (PowerShell)**
-
-```
-$env:MQTT_BROKER="localhost"
-$env:MQTT_PORT="1883"
-```
-
-**Linux / macOS**
-
-```
-export MQTT_BROKER=localhost
-export MQTT_PORT=1883
-```
-
-### Dùng Eclipse Mosquitto chạy local (tùy chọn)
-
-**Windows**
-
-1. Tải bản cài đặt tại https://mosquitto.org/download và cài đặt bình thường.
-2. Mosquitto tự chạy như một Windows service. Kiểm tra bằng lệnh `sc query mosquitto`, thấy `STATE: RUNNING` là broker đang chạy.
-3. Nếu service chưa chạy, mở cmd bằng quyền Administrator và gõ `net start mosquitto`.
-
-**Linux (Ubuntu)**
-
-```
-sudo apt install mosquitto mosquitto-clients
-sudo systemctl start mosquitto
-```
-
-**Ghi chú cấu hình:** Mosquitto 2.x mặc định chạy ở chế độ "local only", chỉ nhận kết nối từ chính máy đang chạy broker. Chế độ này đủ cho bài thực hành vì toàn bộ chương trình chạy trên cùng một máy, nên không cần sửa file `mosquitto.conf`.
-
-**Kiểm tra broker hoạt động:** mở 2 terminal.
-
-```
-mosquitto_sub -h localhost -t iot/lab/message
-mosquitto_pub -h localhost -t iot/lab/message -m "test"
-```
-
-Terminal đầu hiện `test` là broker hoạt động bình thường.
-
 > Lưu ý: broker công cộng ai cũng đọc và gửi được trên cùng topic, nên nếu thấy tin nhắn lạ lẫn vào kết quả thì chuyển sang Mosquitto local.
 
 ## Yêu cầu môi trường
